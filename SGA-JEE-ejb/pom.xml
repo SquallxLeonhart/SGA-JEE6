@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>SGA-JEE</artifactId>
+        <groupId>mx.com.leon.sga</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>mx.com.leon.sga</groupId>
+    <artifactId>SGA-JEE-ejb</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>ejb</packaging>
+
+    <name>SGA-JEE-ejb</name>
+
+    <properties>
+        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <glassfish-embedded-static-shell.jar>
+            C:\Program Files\glassfish-4.0\glassfish\lib\embedded\glassfish-embedded-static-shell.jar
+        </glassfish-embedded-static-shell.jar>
+    </properties>
+
+    <dependencies>
+        <!--dependency>
+            <groupId>org.glassfish.extras</groupId>
+            <artifactId>glassfish-embedded-static-shell</artifactId>
+            <version>4.0</version>
+            <scope>system</scope>
+            <systemPath>${glassfish-embedded-static-shell.jar}</systemPath>
+        </dependency-->       
+        
+        <dependency>
+            <groupId>org.glassfish.extras</groupId>
+            <artifactId>glassfish-embedded-all</artifactId>
+            <version>3.1.1</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>weblogic</groupId>
+            <artifactId>wlfullclient</artifactId>
+            <version>12.1</version>
+            
+        </dependency>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>6.0</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <!--dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <version>6.0</version>
+            
+        </dependency-->
+        
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+        </dependency>
+        
+        
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <compilerArguments>
+                        <endorseddirs>${endorsed.dir}</endorseddirs>
+                    </compilerArguments>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ejb-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <ejbVersion>3.1</ejbVersion>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.1</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${endorsed.dir}</outputDirectory>
+                            <silent>true</silent>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>javax</groupId>
+                                    <artifactId>javaee-endorsed-api</artifactId>
+                                    <version>6.0</version>
+                                    <type>jar</type>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>weblogic-maven-plugin</artifactId>
+                <version>2.9.1-001</version>
+                <inherited>true</inherited>
+                <configuration>
+                    <adminServerHostName>localhost</adminServerHostName>
+                    <adminServerPort>7001</adminServerPort>
+                    <adminServerProtocol>t3</adminServerProtocol>
+                    <userId>weblogic</userId>
+                    <password>weblogic1</password>
+                    <upload>true</upload>
+                    <remote>true</remote>
+                    <verbose>true</verbose>
+                    <debug>false</debug>
+                    <targetNames>my_admin_server</targetNames>
+                    <noExit>true</noExit>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>weblogic</groupId>
+                        <artifactId>wlfullclient</artifactId>
+                        <version>12.1</version>
+                        <scope>runtime</scope>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
